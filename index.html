@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        table {
+            border-spacing: 5px 0px;
+        }
+
+        td {
+            text-align: center;
+            border-right: 1px solid gray;
+            width: 30px;
+        }
+        div {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <label for="people_num">人数</label>
+        <input type="num" id="people_num" value="33"><br>
+    </div>
+
+    <div>
+        <label for="groups">グループ構成</label>
+        <input id="groups" value="[4,4,4,4,4,4,4,4,5]"><br>
+        <label for="groups">[4,4,4,4,4,4,4,4,5]</label><br>
+    </div>
+    <div>
+        <label for="cnt">席替えの回数</label>
+        <input type="num" id="cnt"><br>
+    </div>
+    <div>
+        <label for="max_diff">Max - min</label>
+        <input type="num" id="max_diff"><br>
+    </div>
+    <div>
+        <label for="sikou">試行回数</label>
+        <input type="num" id="sikou" value="10000"><br>
+    </div>
+    <div>
+        <button onclick="main()">実行</button>
+    </div>
+    <table id="good_table">
+
+    </table>
+    <script src="./script.js"></script>
+</body>
+
+</html>
