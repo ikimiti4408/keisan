@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>テスト</title>
+  <style>
+    body {
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #inputContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    label {
+      margin-bottom: 2px;
+    }
+
+    input {
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    #runButton {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    #output {
+      min-width: 250px;
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      background-color: #fff;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="inputContainer">
+    <label for="inputA">A値：</label>
+    <input type="number" id="inputA" placeholder="入力してください">
+    <label for="inputB">B値：</label>
+    <input type="number" id="inputB" placeholder="入力してください">
+    <label for="inputX">x値：</label>
+    <input type="number" id="inputX" placeholder="入力してください">
+    <label for="inputTime">ミリ秒実行時間：</label>
+    <input type="number" id="inputTime" placeholder="入力してください">
+  </div>
+  <button id="runButton">実行</button>
+  <div id="output"></div>
+
+  <script>
+    function getRandomInt(max) {
+      return Math.floor(Math.random() * max);
+    }
+
+    document.getElementById('runButton').addEventListener('click', function () {
+      let A = parseFloat(document.getElementById('inputA').value);
+      let B = parseFloat(document.getElementById('inputB').value);
+      let x = parseFloat(document.getElementById('inputX').value);
+      let timeLimit = parseFloat(document.getElementById('inputTime').value);
+
+      let v_a = [20, 10, 10, 5, 5, -1];
+      let v_b = [1, 1, 1, 1, 1, 1, 0, 0, 0, -1];
+      v_a[5] = x;
+
+      let a_cnt = 0, b_cnt = 0;
+      let s, e;
+      s = new Date();
+
+      document.getElementById('runButton').disabled = true; // Disable the button
+      document.getElementById('output').innerHTML = "Running..."; // Display "Running..."
+
+      setTimeout(function () {
+        while (true) {
+          let a = A, b = B, turn = 0;
+
+          while (a !== 100 && b !== 5) {
+            if (turn === 0) a += v_a[getRandomInt(6)];
+            else b += v_b[getRandomInt(10)];
+            if (b < 0) b = 0;
+            turn = 1 - turn;
+          }
+
+          if (a >= 100) a_cnt++;
+          else b_cnt++;
+
+          e = new Date();
+          let t = e - s;
+          if (t >= timeLimit) break;
+        }
+
+        let p_a = (100.0 * a_cnt / (a_cnt + b_cnt)).toFixed(3);
+        let p_b = (100 - p_a).toFixed(3);
+        let output = "試行回数：" + (a_cnt + b_cnt) + "<br>";
+        output += "A:" + p_a + " %<br> B:" + p_b + " %";
+        document.getElementById('output').innerHTML = output;
+        document.getElementById('runButton').disabled = false; // Enable the button
+      }, 0);
+    });
+  </script>
+</body>
+
+</html>
