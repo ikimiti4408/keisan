@@ -21,7 +21,7 @@
       justify-content: space-between;
       background-color: black;
       width: 100vw;
-      padding-bottom: auto 5px;
+      padding-bottom: 3px;
       font-size: small;
       color: white;
       margin-bottom: 20px;
@@ -71,10 +71,35 @@
     }
 
     #inputA {
-      width: min(85vw, 240px);
+      width: min(60vw, 180px);
       padding: 8px;
       border: 1px solid #ccc;
       border-radius: 3px;
+    }
+
+    #inputBatch {
+      width: min(40vw, 110px);
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    #accuracy-container {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      margin-bottom: 30px;
+    }
+
+    #inputBatch-container,
+    #inputTime-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    #inputBatch-container {
+      margin-left: 20px;
     }
 
     #inputB {
@@ -152,7 +177,6 @@
       position: relative;
       display: inline-block;
       width: min(50vw, 110px);
-      margin-bottom: 30px;
       height: 30px;
       background-color: #fff;
       border: 1px solid #ccc;
@@ -189,7 +213,7 @@
     <span>ガッ釣りGO！JP確率計算サイト</span><span> <a href="about">About</a></span>
   </header>
   <div id="inputContainer">
-    <label for="inputA">残り：</label>
+    <label for="inputA">残り</label>
     <div class="inputA-container">
       <input type="number" id="inputA" value="100" placeholder="残り【入力】m ※1-100m" min="0" max="100"> m
       <div class="buttonMinus-container">
@@ -199,7 +223,7 @@
         <button id="buttonMinus3" class="buttonMinus">-minusA_vec[3]</button>
       </div>
     </div>
-    <label for="inputB">釣竿：</label>
+    <label for="inputB">釣竿</label>
     <div class="slider-container">
       <input type="range" id="inputB" min="0" max="5" value="0" list="markers">
       <!--<span class="slider-value" id="sliderValue">1</span>-->
@@ -215,20 +239,27 @@
     <label for="inputX">サンステップ</label>
     <input type="checkbox" id="inputX">
     <label class="toggle-button" for="inputX" id="inputXToggleButton">なし 1m</label>
-    <label for="inputTime">思考時間</label>
-    <div class="custom-select">
-      <select id="inputTime">
-        <option value="1000">1秒</option>
-        <option value="2000">2秒</option>
-        <option value="3000">3秒</option>
-        <option value="4000">4秒</option>
-        <option value="5000">5秒</option>
-        <option value="6000">6秒</option>
-        <option value="7000">7秒</option>
-        <option value="8000">8秒</option>
-        <option value="9000">9秒</option>
-        <option value="10000">10秒</option>
-      </select>
+    <div id="accuracy-container">
+      <div id="inputTime-container">
+        <label for="inputTime">思考時間</label>
+        <div class="custom-select">
+          <select id="inputTime">
+            <option value="100">0.1秒</option>
+            <option value="500">0.5秒</option>
+            <option value="1000">1秒(推奨)</option>
+            <option value="2000">2秒</option>
+            <option value="3000">3秒</option>
+            <option value="4000">4秒</option>
+            <option value="5000">5秒</option>
+            <option value="8000">7秒</option>
+            <option value="10000">10秒</option>
+          </select>
+        </div>
+      </div>
+      <div id="inputBatch-container">
+        <label for="inputBatch">バッチサイズ</label>
+        <input type="number" id="inputBatch" value="10000" placeholder="入力" min="1" max="1000000000">
+      </div>
     </div>
   </div>
   <button id="runButton">計算</button>
@@ -254,10 +285,17 @@
     window.addEventListener('load', function () {
       change_buttonMinusElementsContent();
       let t = localStorage.getItem('t87tv1-timeLimit');
+      let b = localStorage.getItem('t87tv1-batchSize');
       let q = document.querySelectorAll('#inputTime option');
+      let i = document.getElementById('inputBatch');
       document.getElementById('inputB').value = 2;
       if (t === null || t === undefined) {
-        q[0].setAttribute('selected', '');
+        for (let i = 0; i < q.length; i++) {
+          if (Number(q[i].getAttribute('value')) == 1000) {
+            q[i].setAttribute('selected', '');
+            break;
+          }
+        }
       } else {
         for (let i = 0; i < q.length; i++) {
           if (Number(q[i].getAttribute('value')) == t) {
@@ -265,7 +303,11 @@
             break;
           }
         }
-
+      }
+      if (b === null || b === undefined) {
+        i.value = 10000;
+      } else {
+        i.value = b;
       }
     });
 
@@ -282,19 +324,7 @@
       });
     }
 
-    document.getElementById('runButton').addEventListener('click', function () {
-      if (running) return;
-      document.getElementById('runButton').disabled = true; // Disable the button
-      running = true;
-      document.getElementById('output').innerHTML = "Running..."; // Display "Running..."
-      let A = (parseFloat(document.getElementById('inputA').value) - 100) * -1.0;
-      if (Number.isNaN(A) || A < 0 || 100 < A) A = 100;
-      let B = parseFloat(document.getElementById('inputB').value);
-      let x = document.getElementById('inputX').checked ? 11 : 1; // Assign 11 for ON, 1 for OFF
-      let timeLimit = parseFloat(document.getElementById('inputTime').value);
-      localStorage.setItem('t87tv1-timeLimit', timeLimit);
-
-      console.log(A, B, x, timeLimit);
+    function performCalculationBatch(A, B, x, timeLimit, batchSize) {
       let v_a = [20, 10, 10, 5, 5, -9999];
       let v_b = [1, 1, 1, 1, 1, 1, 0, 0, 0, -1];
       v_a[5] = x;
@@ -303,11 +333,10 @@
       let s, e;
       s = new Date();
 
+      function performIteration() {
 
-      setTimeout(function () {
-        while (true) {
+        for (let cnt = 0; cnt < batchSize; cnt++) {
           let a = A, b = B, turn = 0;
-
           while (a !== 100 && b !== 5) {
             if (turn === 0) a += v_a[getRandomInt(6)];
             else b += v_b[getRandomInt(10)];
@@ -319,19 +348,53 @@
           else b_cnt++;
 
           e = new Date();
-          let t = e - s;
-          if (t >= timeLimit) break;
+          let t_in_loop = e - s;
+          if (t_in_loop >= timeLimit) {
+            break;
+          }
         }
+        e = new Date();
+        let t = e - s;
+        if (t < timeLimit) {
+          setTimeout(performIteration, 0); // Schedule the next iteration with no delay
+        } else {
+          // Calculation finished for this batch
+          let p_a = (100.0 * a_cnt / (a_cnt + b_cnt)).toFixed(3);
+          let p_b = (100 - p_a).toFixed(3);
+          let output = "<span class='stgTxt'>JP確率 " + p_a + " %</span><br>";
+          output += "<span class='supTxt'>計算回数：" + (a_cnt + b_cnt) + "</span>";
+          document.getElementById('output').innerHTML = output;
+          running = false;
+          document.getElementById('runButton').disabled = false; // Enable the button
+        }
+      }
 
-        let p_a = (100.0 * a_cnt / (a_cnt + b_cnt)).toFixed(3);
-        let p_b = (100 - p_a).toFixed(3);
-        let output = "<span class='stgTxt'>JP確率 " + p_a + " %</span><br>";
-        output += "<span class='supTxt'>計算回数：" + (a_cnt + b_cnt) + "</span>";
-        document.getElementById('output').innerHTML = output;
-        running = false;
-        document.getElementById('runButton').disabled = false; // Enable the button
-      }, 0);
+      // Start the first iteration
+      setTimeout(performIteration, 0);
+    }
+
+    document.getElementById('runButton').addEventListener('click', function () {
+      if (running == true) {
+        return;
+      }
+      running = true;
+      document.getElementById('runButton').disabled = true; // Disable the button
+      document.getElementById('output').innerHTML = "Running..."; // Display "Running..."
+
+      let A = (parseFloat(document.getElementById('inputA').value) - 100) * -1.0;
+      if (Number.isNaN(A) || A < 0 || 100 < A) A = 100;
+      let B = parseFloat(document.getElementById('inputB').value);
+      let x = document.getElementById('inputX').checked ? 11 : 1;
+      let timeLimit = parseFloat(document.getElementById('inputTime').value);
+      let batchSize = (document.getElementById('inputBatch').value);
+      if (Number.isNaN(batchSize) || batchSize <= 0 || 1000000000 < batchSize) batchSize = 1000000000;
+
+      localStorage.setItem('t87tv1-timeLimit', timeLimit);
+      localStorage.setItem('t87tv1-batchSize', batchSize);
+
+      performCalculationBatch(A, B, x, timeLimit, batchSize);
     });
+
 
     document.getElementById('inputB').addEventListener('input', function () {
       // document.getElementById('sliderValue').textContent = this.value;
