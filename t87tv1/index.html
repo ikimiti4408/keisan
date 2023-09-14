@@ -103,10 +103,6 @@
     }
 
     #inputB {
-      appearance: none;
-      cursor: pointer;
-      background: linear-gradient(0.25turn, #42f5cb, #f54242);
-      border-radius: 10px;
       width: min(90vw + 16px, 250px + 16px);
     }
 
@@ -136,18 +132,8 @@
 
     .slider-container {
       display: flex;
+      align-items: center;
       margin-bottom: 30px;
-    }
-
-    .slider-bg::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 10%;
-      top: 0;
-      right: 0;
-      background-color: red;
-      z-index: -1;
     }
 
     /*
@@ -239,7 +225,6 @@
     </div>
     <label for="inputB">釣竿</label>
     <div class="slider-container">
-      <div class="slider-bg"></div>
       <input type="range" id="inputB" min="0" max="5" value="0" list="markers">
       <!--<span class="slider-value" id="sliderValue">1</span>-->
     </div>
