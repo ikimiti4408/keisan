@@ -1,0 +1,209 @@
+body {
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: black;
+    width: 100vw;
+    padding-bottom: 3px;
+    font-size: small;
+    color: white;
+    margin-bottom: 20px;
+}
+
+header span {
+    padding: 2px 15px;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid white;
+}
+
+#inputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+label {
+    margin-bottom: 2px;
+}
+
+.inputA-container {
+    margin-bottom: 30px;
+}
+
+.buttonMinus-container {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.buttonMinus-container .buttonMinus {
+    text-align: center;
+    width: min(20vw, 60px);
+    background-color: teal;
+    border: 1px solid teal;
+    color: #FFFFFF;
+    padding: 5px 15px;
+    margin: auto 3px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#inputA {
+    width: min(60vw, 180px);
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+#inputBatch {
+    width: min(40vw, 110px);
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+#accuracy-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+#inputBatch-container,
+#inputTime-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#inputBatch-container {
+    margin-left: 20px;
+}
+
+.inputB-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+#inputB {
+    width: min(90vw + 16px, 250px + 16px);
+    height: 35px;
+    border: 3px #8f783b solid;
+    border-radius: 50px;
+}
+
+
+#runButton {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#runButton[disabled] {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+#output {
+    width: min(85vw, 220px);
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #fff;
+    text-align: center;
+}
+
+/*
+  .slider-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  .slider-value {
+    margin-left: 10px;
+  }
+  */
+
+/* Styling for the ON/OFF button */
+#inputX {
+    display: none;
+}
+
+.toggle-button {
+    text-align: center;
+    width: min(90vw, 250px);
+    background-color: #ccc;
+    border: 1px solid #ccc;
+    color: #000;
+    padding: 5px 15px;
+    margin-bottom: 30px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#inputX:checked+.toggle-button {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+.stgTxt {
+    font-size: larger;
+}
+
+.supTxt {
+    font-size: x-small;
+}
+
+.custom-select {
+    position: relative;
+    display: inline-block;
+    width: min(50vw, 110px);
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding-left: 10px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.custom-select select {
+    width: 100%;
+    height: 100%;
+    padding-left: 2px;
+    border: none;
+    background-color: transparent;
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.custom-select::after {
+    content: '\25BC';
+    /* Downward arrow */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
