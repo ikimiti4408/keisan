@@ -42,6 +42,11 @@ window.addEventListener('load', function () {
     } else {
         i.value = b;
     }
+    let url = new URL(window.location.href);
+    let is_simple_view = url.searchParams.get('simpleview');
+    if (is_simple_view != null && is_simple_view == 'true') {
+        document.getElementById('accuracy-container').style.display = 'none';
+    }
 });
 
 for (let i = 0; i < buttonMinusElements.length; i++) {
