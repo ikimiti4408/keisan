@@ -44,6 +44,10 @@
 Safariを使用している場合や初めてアクセスした、キャッシュを削除した場合などでは、初期値(思考時間：1秒　バッチサイズ：10000)となることがあります。  
 
 ## 更新履歴
+- 2023/9/25  
+Google アナリティクスを導入しました。  
+上記の変更に伴い、aboutページ下部にプライバシーポリシーを明記しました。  
+
 - 2023/9/16  
 簡易表示機能を追加しました。  
 aboutページに簡易表示機能の説明を追加しました。  
@@ -70,6 +74,17 @@ aboutページを更新しました。
 - 2023/8/26  
 公開しました。
 
+## プライバシーポリシー
+当サイト([https://ikimiti4408.github.io/keisan/t87tv1/index.html](https://ikimiti4408.github.io/keisan/t87tv1/index.html))ではサイトの利用状況の分析のため、Google アナリティクスを使用しています。Google アナリティクスはデータ収集にCookieを使用しており、データは個人が特定されない形で収集されGoogleに送信されます。収集されるデータは個人の特定を目的としたものではありません。  
+  
+Google アナリティクスはCookieの無効などで収集を拒否することができますので、希望される方はご利用のデバイスやブラウザの設定をご確認ください。また、Google アナリティクスで収集される情報に対するGoogle社での取り扱いは、  
+- [Google アナリティクス 利用規約](https://marketingplatform.google.com/about/analytics/terms/jp/)  
+- [Google プライバシーポリシー](https://policies.google.com/privacy?hl=ja)  
+- [Google のサービスを使用するサイトやアプリから収集した情報の Google による使用](https://policies.google.com/technologies/partner-sites)  
+  
+をご覧ください。  
+
+ikimiti4408が直接運用するWebサイト([https://ikimiti4408.github.io/](https://ikimiti4408.github.io/)など)でないサイトなどで運用される当プログラムを利用したアプリケーションについては該当アプリケーションの運営者にお問い合わせください。
 
 ## サードパーティーソフトウェアに関する通知  
 [notice](https://ikimiti4408.github.io/keisan/t87tv1/NOTICE)ページをご覧ください。  
