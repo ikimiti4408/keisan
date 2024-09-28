@@ -58,6 +58,7 @@ for (let i = 0; i < buttonMinusElements.length; i++) {
             // document.getElementById('inputB').value = 0;
         }
         let new_value = now_value - minusAvec[i]
+        if (new_value > 100) inputB.noUiSlider.set(3);
         document.getElementById('inputA').value = Math.max(0, Math.min(new_value, 100));
     });
 }
