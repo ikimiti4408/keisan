@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SVJSW2MHJ1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-SVJSW2MHJ1');
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ガッ釣りGO！JP確率計算</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="sliderstyle.css">
+  <link rel="stylesheet" href="nouislider/nouislider.min.css">
+</head>
+
+<body>
+  <header>
+    <span>ガッ釣りGO！JP確率計算サイト</span><span> <a href="about">About</a></span>
+  </header>
+  <div id="inputContainer">
+    <span>残り</span>
+    <div class="inputA-container">
+      <input type="number" id="inputA" value="100" placeholder="残り【入力】m ※1-100m" min="0" max="100"> m
+      <div class="buttonMinus-container">
+        <button id="buttonMinus0" class="buttonMinus">-minusA_vec[0]</button>
+        <button id="buttonMinus1" class="buttonMinus">-minusA_vec[1]</button>
+        <button id="buttonMinus2" class="buttonMinus">-minusA_vec[2]</button>
+        <button id="buttonMinus3" class="buttonMinus">-minusA_vec[3]</button>
+      </div>
+    </div>
+    <label for="inputB">釣竿</label>
+    <div class="inputB-container">
+      <div id="inputB"></div>
+    </div>
+    <!--
+    <div class="slider-container">
+      <input type="range" id="inputB" min="0" max="5" value="0" list="markers">
+      <span class="slider-value" id="sliderValue">1</span>
+    </div>
+    <datalist id="markers">
+      <option value="0"></option>
+      <option value="1"></option>
+      <option value="2"></option>
+      <option value="3"></option>
+      <option value="4"></option>
+      <option value="5"></option>
+    </datalist>
+  -->
+    <label for="inputX">サンステップ</label>
+    <input type="checkbox" id="inputX">
+    <label class="toggle-button" for="inputX" id="inputXToggleButton">なし 1m</label>
+    <div id="accuracy-container">
+      <div id="inputTime-container">
+        <label for="inputTime">思考時間</label>
+        <div class="custom-select">
+          <select id="inputTime">
+            <option value="100">0.1秒</option>
+            <option value="500">0.5秒</option>
+            <option value="1000">1秒(推奨)</option>
+            <option value="2000">2秒</option>
+            <option value="3000">3秒</option>
+            <option value="4000">4秒</option>
+            <option value="5000">5秒</option>
+            <option value="8000">7秒</option>
+            <option value="10000">10秒</option>
+          </select>
+        </div>
+      </div>
+      <div id="inputBatch-container">
+        <label for="inputBatch">バッチサイズ</label>
+        <input type="number" id="inputBatch" value="10000" placeholder="入力" min="1" max="1000000000">
+      </div>
+    </div>
+  </div>
+  <button id="runButton">計算</button>
+  <div id="output"></div>
+
+  <script src="nouislider/nouislider.min.js"></script>
+  <script src="sliderscript.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
